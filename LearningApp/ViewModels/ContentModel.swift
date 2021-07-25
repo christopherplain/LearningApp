@@ -9,6 +9,8 @@ import Foundation
 
 class ContentModel: ObservableObject {
     @Published var modules = [Module]()
+    @Published var currentModule: Module?
+    var currentModuleIndex: Int?
     var styleData: Data?
     
     init() {
@@ -34,5 +36,10 @@ class ContentModel: ObservableObject {
         } catch {
             print(error)
         }
+    }
+    
+    func beginModule(_ index: Int) {
+        self.currentModule = modules[index]
+        self.currentModuleIndex = index
     }
 }

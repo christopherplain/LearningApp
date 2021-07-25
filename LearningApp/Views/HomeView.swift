@@ -17,14 +17,21 @@ struct HomeView: View {
                     .padding(.leading, 20)
                 ScrollView {
                     LazyVStack {
-                        ForEach(model.modules) { module in
+                        ForEach(model.modules.indices) { index in
+                            let module = model.modules[index]
                             VStack(spacing: 20) {
-                                HomeCardView(
-                                    image: module.content.image,
-                                    title: "Learn \(module.category)",
-                                    description: module.content.description,
-                                    count: "\(module.content.lessons.count) Lessons",
-                                    time: (module.content.time)
+                                NavigationLink(
+                                    destination: LessonListView()
+                                        .onAppear { model.beginModule(index) },
+                                    label: {
+                                        HomeCardView(
+                                            image: module.content.image,
+                                            title: "Learn \(module.category)",
+                                            description: module.content.description,
+                                            count: "\(module.content.lessons.count) Lessons",
+                                            time: (module.content.time)
+                                        )
+                                    }
                                 )
                                 HomeCardView(
                                     image: module.test.image,
@@ -34,6 +41,7 @@ struct HomeView: View {
                                     time: (module.test.time)
                                 )
                             }
+                            .accentColor(.black)
                         }
                     }
                     .padding()
