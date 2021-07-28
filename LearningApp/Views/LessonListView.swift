@@ -15,7 +15,14 @@ struct LessonListView: View {
             LazyVStack {
                 if model.currentModule != nil {
                     ForEach(model.currentModule!.content.lessons.indices) { index in
-                        LessonCardView(index: index)
+                        NavigationLink(
+                            destination: LessonDetailView()
+                                .onAppear { model.beginLesson(index) },
+                            label: {
+                                LessonCardView(index: index)
+                            }
+                        )
+                        .accentColor(.black)
                     }
                 }
             }
@@ -27,6 +34,11 @@ struct LessonListView: View {
 
 struct LessonListView_Previews: PreviewProvider {
     static var previews: some View {
+        let model = ContentModel()
         LessonListView()
+            .environmentObject(model)
+            .onAppear(perform: {
+                model.beginModule(0)
+            })
     }
 }
