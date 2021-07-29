@@ -17,16 +17,15 @@ struct LessonListView: View {
                     ForEach(model.currentModule!.content.lessons.indices) { index in
                         NavigationLink(
                             destination: LessonDetailView()
-                                .onAppear { model.beginLesson(index) },
-                            label: {
-                                LessonCardView(index: index)
-                            }
-                        )
-                        .accentColor(.black)
+                                .onAppear { model.beginLesson(index) }
+                        ) {
+                            LessonCardView(index: index)
+                        }
                     }
                 }
             }
             .padding()
+            .accentColor(.black)
             .navigationTitle("Learn \(model.currentModule?.category ?? "")")
         }
     }

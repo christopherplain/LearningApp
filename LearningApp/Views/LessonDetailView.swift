@@ -12,14 +12,15 @@ struct LessonDetailView: View {
     @EnvironmentObject var model: ContentModel
     
     var body: some View {
+        let lesson = model.currentLesson
         VStack(alignment: .leading) {
-            if model.currentLesson != nil {
-                let url = URL(string: Constants.videoHostURL + model.currentLesson!.video)
+            if lesson != nil {
+                let url = URL(string: Constants.videoHostURL + lesson!.video)
                 if url != nil {
                     VideoPlayer(player: AVPlayer(url: url!))
                         .cornerRadius(10)
                 }
-                Text("This is where the main lesson content will go.")
+                LessonTextView()
                 if model.hasNextLesson() {
                     let nextLessonIndex = model.currentLessonIndex! + 1
                     let nextLessonTitle = model.currentModule!.content.lessons[nextLessonIndex].title
@@ -41,7 +42,7 @@ struct LessonDetailView: View {
             }
         }
         .padding()
-        .navigationTitle("\(model.currentLesson?.title ?? "")")
+        .navigationTitle("\(lesson?.title ?? "")")
     }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C05EC65626B0E35F006C8CBE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05EC65526B0E35F006C8CBE /* Constants.swift */; };
+		C05EC65826B1034A006C8CBE /* LessonTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05EC65726B1034A006C8CBE /* LessonTextView.swift */; };
 		C0C27A8926ABC36900499E78 /* style.html in Resources */ = {isa = PBXBuildFile; fileRef = C0C27A8726ABC36900499E78 /* style.html */; };
 		C0C27A8A26ABC36900499E78 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = C0C27A8826ABC36900499E78 /* data.json */; };
 		C0C27A8C26ABC46100499E78 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C27A8B26ABC46100499E78 /* Module.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		C05EC65526B0E35F006C8CBE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C05EC65726B1034A006C8CBE /* LessonTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTextView.swift; sourceTree = "<group>"; };
 		C0C27A8726ABC36900499E78 /* style.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = style.html; sourceTree = "<group>"; };
 		C0C27A8826ABC36900499E78 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		C0C27A8B26ABC46100499E78 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				C0C7F22C26ACF95D00B82836 /* LessonCardView.swift */,
 				C0DE117226AFAF6B00ECBEB2 /* LessonDetailView.swift */,
 				C0C7F22A26ACEE8600B82836 /* LessonListView.swift */,
+				C05EC65726B1034A006C8CBE /* LessonTextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				C0F64D3626A90F260063C7D9 /* HomeView.swift in Sources */,
 				C0C27A8C26ABC46100499E78 /* Module.swift in Sources */,
 				C0F64D3426A90F260063C7D9 /* LearningApp.swift in Sources */,
+				C05EC65826B1034A006C8CBE /* LessonTextView.swift in Sources */,
 				C0F64D4626A9101A0063C7D9 /* ContentModel.swift in Sources */,
 				C05EC65626B0E35F006C8CBE /* Constants.swift in Sources */,
 			);

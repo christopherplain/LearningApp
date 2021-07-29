@@ -11,6 +11,7 @@ class ContentModel: ObservableObject {
     @Published var modules = [Module]()
     @Published var currentModule: Module?
     @Published var currentLesson: Lesson?
+    @Published var currentDescription: NSAttributedString?
     var currentModuleIndex: Int?
     var currentLessonIndex: Int?
     var styleData: Data?
@@ -44,13 +45,31 @@ class ContentModel: ObservableObject {
         self.currentModule = modules[index]
         self.currentModuleIndex = index
     }
-
+    
     func beginLesson(_ index: Int) {
         self.currentLesson = self.currentModule?.content.lessons[index]
         self.currentLessonIndex = index
+        self.currentDescription = styleText(self.currentLesson!.explanation)
     }
     
     func hasNextLesson() -> Bool {
         return self.currentLessonIndex! + 1 < self.currentModule!.content.lessons.count
+    }
+    
+    func styleText(_ htmlString: String) -> NSAttributedString {
+        var resultString = NSAttributedString()
+        var data = Data()
+        if self.styleData != nil {
+            data.append(self.styleData!)
+        }
+        data.append(Data(htmlString.utf8))
+        if let attributedString = try? NSAttributedString(
+            data: data,
+            options: [.documentType: NSAttributedString.DocumentType.html],
+            documentAttributes: nil
+        ) {
+            resultString = attributedString
+        }
+        return resultString
     }
 }
