@@ -22,7 +22,9 @@ struct HomeView: View {
                             VStack(spacing: 20) {
                                 NavigationLink(
                                     destination: LessonListView()
-                                        .onAppear { model.beginModule(index) }
+                                        .onAppear { model.beginModule(index) },
+                                    tag: index,
+                                    selection: $model.currentModuleIndex
                                 ) {
                                     HomeCardView(
                                         image: module.content.image,

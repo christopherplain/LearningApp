@@ -26,18 +26,15 @@ struct LessonDetailView: View {
                     let nextLessonTitle = model.currentModule!.content.lessons[nextLessonIndex].title
                     Button(action: {
                         model.beginLesson(nextLessonIndex)
-                    }, label: {
-                        ZStack {
-                            Rectangle()
-                                .foregroundColor(.green)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                                .frame(height: 48)
-                            Text("Next Lesson: \(nextLessonTitle)")
-                                .foregroundColor(.white)
-                                .fontWeight(.bold)
-                        }
-                    })
+                    }) {
+                        RectangleCardView(text: "Next Lesson: \(nextLessonTitle)", color: .green, height: 48)
+                    }
+                } else {
+                    Button(action: {
+                        model.currentModuleIndex = nil
+                    }) {
+                        RectangleCardView(text: "Complete", color: .green, height: 48)
+                    }
                 }
             }
         }

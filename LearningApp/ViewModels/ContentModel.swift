@@ -10,9 +10,9 @@ import Foundation
 class ContentModel: ObservableObject {
     @Published var modules = [Module]()
     @Published var currentModule: Module?
+    @Published var currentModuleIndex: Int?
     @Published var currentLesson: Lesson?
     @Published var currentDescription: NSAttributedString?
-    var currentModuleIndex: Int?
     var currentLessonIndex: Int?
     var styleData: Data?
     
