@@ -15,31 +15,47 @@ struct LessonDetailView: View {
         let lesson = model.currentLesson
         VStack(alignment: .leading) {
             if lesson != nil {
+                
+                // MARK: Video
                 let url = URL(string: Constants.videoHostURL + lesson!.video)
                 if url != nil {
                     VideoPlayer(player: AVPlayer(url: url!))
                         .cornerRadius(10)
+                        .padding(.horizontal)
                 }
+                
+                // MARK: Lesson content
                 StyledTextView()
-                if model.hasNextLesson() {
-                    let nextLessonIndex = model.currentLessonIndex! + 1
-                    let nextLessonTitle = model.currentModule!.content.lessons[nextLessonIndex].title
-                    Button(action: {
-                        model.beginLesson(nextLessonIndex)
-                    }) {
-                        ButtonView(text: "Next Lesson: \(nextLessonTitle)", fontColor: .white, buttonColor: .green, height: 48)
-                    }
-                } else {
-                    Button(action: {
-                        model.lessonLinkSelected = nil
-                    }) {
-                        ButtonView(text: "Complete", fontColor: .white, buttonColor: .green, height: 48)
-                    }
+                    .padding(.horizontal)
+                
+                // MARK: Submit and complete button
+                let buttonText = getButtonText()
+                Button(action: {
+                    buttonAction()
+                }) {
+                    ButtonView(text: buttonText, fontColor: .white, buttonColor: .green, height: 48)
                 }
+                .padding()
             }
         }
-        .padding()
         .navigationTitle("\(lesson?.title ?? "")")
+    }
+    
+    func buttonAction() {
+        if model.hasNextLesson() {
+            model.nextLesson()
+        } else {
+            model.lessonLinkSelected = nil
+        }
+    }
+    
+    func getButtonText() -> String {
+        if model.hasNextLesson() {
+            let title = model.currentModule!.content.lessons[model.currentLessonIndex! + 1].title
+            return "Next Lesson: \(title)"
+        } else {
+            return "Complete"
+        }
     }
 }
 

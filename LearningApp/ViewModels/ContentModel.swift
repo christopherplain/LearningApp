@@ -30,7 +30,7 @@ class ContentModel: ObservableObject {
         do {
             let data = try Data(contentsOf: url!)
             let decoder = JSONDecoder()
-            self.modules = try decoder.decode([Module].self, from: data)
+            modules = try decoder.decode([Module].self, from: data)
         } catch {
             print(error)
         }
@@ -39,38 +39,47 @@ class ContentModel: ObservableObject {
     func getStyleData() {
         let url = Bundle.main.url(forResource: "style", withExtension: "html")
         do {
-            self.styleData = try Data(contentsOf: url!)
+            styleData = try Data(contentsOf: url!)
         } catch {
             print(error)
         }
     }
     
     func beginModule(_ index: Int) {
-        self.currentModule = modules[index]
+        currentModule = modules[index]
     }
     
     func beginLesson(_ index: Int) {
-        self.currentLesson = self.currentModule?.content.lessons[index]
-        self.currentLessonIndex = index
-        self.currentStyledText = styleText(self.currentLesson!.explanation)
+        currentLesson = currentModule?.content.lessons[index]
+        currentLessonIndex = index
+        currentStyledText = styleText(currentLesson!.explanation)
     }
     
     func beginTest(_ moduleIndex: Int) {
         beginModule(moduleIndex)
-        self.currentQuestionIndex = 0
-        self.currentQuestion = self.currentModule!.test.questions[self.currentQuestionIndex!]
-        self.currentStyledText = styleText(self.currentQuestion!.content)
+        currentQuestionIndex = 0
+        currentQuestion = currentModule!.test.questions[currentQuestionIndex!]
+        currentStyledText = styleText(currentQuestion!.content)
     }
     
     func hasNextLesson() -> Bool {
-        return self.currentLessonIndex! + 1 < self.currentModule!.content.lessons.count
+        return currentLessonIndex! + 1 < currentModule!.content.lessons.count
+    }
+    
+    func nextLesson() {
+        if hasNextLesson() {
+            beginLesson(currentLessonIndex! + 1)
+        } else {
+            currentLesson = nil
+            currentLessonIndex = nil
+        }
     }
     
     func styleText(_ htmlString: String) -> NSAttributedString {
         var resultString = NSAttributedString()
         var data = Data()
-        if self.styleData != nil {
-            data.append(self.styleData!)
+        if styleData != nil {
+            data.append(styleData!)
         }
         data.append(Data(htmlString.utf8))
         if let attributedString = try? NSAttributedString(
