@@ -72,6 +72,7 @@ class ContentModel: ObservableObject {
         } else {
             currentLesson = nil
             currentLessonIndex = nil
+            lessonLinkSelected = nil
         }
     }
     

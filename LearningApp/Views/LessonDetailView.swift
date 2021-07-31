@@ -31,7 +31,7 @@ struct LessonDetailView: View {
                 // MARK: Submit and complete button
                 let buttonText = getButtonText()
                 Button(action: {
-                    buttonAction()
+                    model.nextLesson()
                 }) {
                     ButtonView(text: buttonText, fontColor: .white, buttonColor: .green, height: 48)
                 }
@@ -39,14 +39,6 @@ struct LessonDetailView: View {
             }
         }
         .navigationTitle("\(lesson?.title ?? "")")
-    }
-    
-    func buttonAction() {
-        if model.hasNextLesson() {
-            model.nextLesson()
-        } else {
-            model.lessonLinkSelected = nil
-        }
     }
     
     func getButtonText() -> String {
