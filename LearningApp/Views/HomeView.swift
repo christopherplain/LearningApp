@@ -24,7 +24,7 @@ struct HomeView: View {
                                     destination: LessonListView()
                                         .onAppear { model.beginModule(index) },
                                     tag: index,
-                                    selection: $model.currentModuleIndex
+                                    selection: $model.lessonLinkSelected
                                 ) {
                                     HomeCardView(
                                         image: module.content.image,
@@ -34,13 +34,23 @@ struct HomeView: View {
                                         time: (module.content.time)
                                     )
                                 }
-                                HomeCardView(
-                                    image: module.test.image,
-                                    title: "\(module.category) Test",
-                                    description: module.test.description,
-                                    count: "\(module.test.questions.count) Questions",
-                                    time: (module.test.time)
-                                )
+                                NavigationLink(
+                                    destination: TestView()
+                                        .onAppear { model.beginTest(index) },
+                                    tag: index,
+                                    selection: $model.testLinkSelected
+                                ) {
+                                    HomeCardView(
+                                        image: module.test.image,
+                                        title: "\(module.category) Test",
+                                        description: module.test.description,
+                                        count: "\(module.test.questions.count) Questions",
+                                        time: (module.test.time)
+                                    )
+                                }
+                                NavigationLink(destination: EmptyView()) {
+                                    EmptyView()
+                                }
                             }
                             .accentColor(.black)
                         }

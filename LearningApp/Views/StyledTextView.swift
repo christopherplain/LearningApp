@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LessonTextView: UIViewRepresentable {
+struct StyledTextView: UIViewRepresentable {
     @EnvironmentObject var model: ContentModel
     
     func makeUIView(context: Context) -> UITextView {
@@ -17,13 +17,13 @@ struct LessonTextView: UIViewRepresentable {
     }
 
     func updateUIView(_ textView: UITextView, context: Context) {
-        textView.attributedText = model.currentDescription
+        textView.attributedText = model.currentStyledText
         textView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false)
     }
 }
 
 struct LessonTextView_Previews: PreviewProvider {
     static var previews: some View {
-        LessonTextView()
+        StyledTextView()
     }
 }

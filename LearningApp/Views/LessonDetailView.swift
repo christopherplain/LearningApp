@@ -20,7 +20,7 @@ struct LessonDetailView: View {
                     VideoPlayer(player: AVPlayer(url: url!))
                         .cornerRadius(10)
                 }
-                LessonTextView()
+                StyledTextView()
                 if model.hasNextLesson() {
                     let nextLessonIndex = model.currentLessonIndex! + 1
                     let nextLessonTitle = model.currentModule!.content.lessons[nextLessonIndex].title
@@ -31,7 +31,7 @@ struct LessonDetailView: View {
                     }
                 } else {
                     Button(action: {
-                        model.currentModuleIndex = nil
+                        model.lessonLinkSelected = nil
                     }) {
                         RectangleCardView(text: "Complete", color: .green, height: 48)
                     }

@@ -9,11 +9,15 @@ import Foundation
 
 class ContentModel: ObservableObject {
     @Published var modules = [Module]()
+    @Published var currentStyledText: NSAttributedString?
+    @Published var currentLesson: Lesson?
     @Published var currentModule: Module?
     @Published var currentModuleIndex: Int?
-    @Published var currentLesson: Lesson?
-    @Published var currentDescription: NSAttributedString?
+    @Published var currentQuestion: Question?
+    @Published var lessonLinkSelected: Int?
+    @Published var testLinkSelected: Int?
     var currentLessonIndex: Int?
+    var currentQuestionIndex: Int?
     var styleData: Data?
     
     init() {
@@ -43,13 +47,19 @@ class ContentModel: ObservableObject {
     
     func beginModule(_ index: Int) {
         self.currentModule = modules[index]
-        self.currentModuleIndex = index
     }
     
     func beginLesson(_ index: Int) {
         self.currentLesson = self.currentModule?.content.lessons[index]
         self.currentLessonIndex = index
-        self.currentDescription = styleText(self.currentLesson!.explanation)
+        self.currentStyledText = styleText(self.currentLesson!.explanation)
+    }
+    
+    func beginTest(_ moduleIndex: Int) {
+        beginModule(moduleIndex)
+        self.currentQuestionIndex = 0
+        self.currentQuestion = self.currentModule!.test.questions[self.currentQuestionIndex!]
+        self.currentStyledText = styleText(self.currentQuestion!.content)
     }
     
     func hasNextLesson() -> Bool {
