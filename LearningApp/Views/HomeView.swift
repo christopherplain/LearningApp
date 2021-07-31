@@ -13,13 +13,19 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
+                
+                // MARK: Greeting
                 Text("What would you like to do today?")
                     .padding(.leading, 20)
+                
+                // MARK: Modules
                 ScrollView {
                     LazyVStack {
                         ForEach(model.modules.indices) { index in
                             let module = model.modules[index]
                             VStack(spacing: 20) {
+                                
+                                // MARK: Lesson card
                                 NavigationLink(
                                     destination: LessonListView()
                                         .onAppear { model.beginModule(index) },
@@ -34,6 +40,8 @@ struct HomeView: View {
                                         time: (module.content.time)
                                     )
                                 }
+                                
+                                // MARK: Test card
                                 NavigationLink(
                                     destination: TestView()
                                         .onAppear { model.beginTest(index) },
@@ -48,6 +56,8 @@ struct HomeView: View {
                                         time: (module.test.time)
                                     )
                                 }
+                                
+                                // Fix for 14.5 NavigationLink issue
                                 NavigationLink(destination: EmptyView()) {
                                     EmptyView()
                                 }

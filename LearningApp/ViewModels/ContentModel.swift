@@ -9,11 +9,12 @@ import Foundation
 
 class ContentModel: ObservableObject {
     @Published var modules = [Module]()
-    @Published var currentStyledText: NSAttributedString?
+    @Published var correctAnswerIndex: Int?
     @Published var currentLesson: Lesson?
     @Published var currentModule: Module?
     @Published var currentModuleIndex: Int?
     @Published var currentQuestion: Question?
+    @Published var currentStyledText: NSAttributedString?
     @Published var lessonLinkSelected: Int?
     @Published var testLinkSelected: Int?
     var currentLessonIndex: Int?
@@ -60,10 +61,15 @@ class ContentModel: ObservableObject {
         currentQuestionIndex = 0
         currentQuestion = currentModule!.test.questions[currentQuestionIndex!]
         currentStyledText = styleText(currentQuestion!.content)
+        correctAnswerIndex = currentQuestion!.correctIndex
     }
     
     func hasNextLesson() -> Bool {
         return currentLessonIndex! + 1 < currentModule!.content.lessons.count
+    }
+    
+    func hasNextQuestion() -> Bool {
+        return currentQuestionIndex! + 1 < currentModule!.test.questions.count
     }
     
     func nextLesson() {
@@ -76,6 +82,20 @@ class ContentModel: ObservableObject {
         }
     }
     
+    func nextQuestion() {
+        if hasNextQuestion() {
+            currentQuestionIndex! += 1
+            currentQuestion = currentModule!.test.questions[currentQuestionIndex!]
+            currentStyledText = styleText(currentQuestion!.content)
+            correctAnswerIndex = currentQuestion!.correctIndex
+        } else {
+            correctAnswerIndex = nil
+            currentQuestion = nil
+            currentQuestionIndex = nil
+            currentStyledText = nil
+        }
+    }
+
     func styleText(_ htmlString: String) -> NSAttributedString {
         var resultString = NSAttributedString()
         var data = Data()

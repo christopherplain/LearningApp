@@ -9,7 +9,6 @@ import SwiftUI
 
 struct TestView: View {
     @EnvironmentObject var model: ContentModel
-    @State var correctAnswerIndex: Int?
     @State var selectedAnswerIndex: Int?
     @State var submitted = false
     
@@ -29,7 +28,7 @@ struct TestView: View {
                 // MARK: Answer buttons
                 ScrollView {
                     VStack(spacing: 15) {
-                        ForEach(answers.indices) { index in
+                        ForEach(answers.indices, id: \.self) { index in
                             let answer = answers[index]
                             let buttonColor = getButtonColor(answerIndex: index)
                             Button(action: {
@@ -44,11 +43,15 @@ struct TestView: View {
                 }
                 
                 // MARK: Submit button
+                let buttonText = !submitted ? "Submit" : "Next"
                 Button(action: {
-                    correctAnswerIndex = model.currentQuestion!.correctIndex
-                    submitted = true
+                    if submitted {
+                        model.nextQuestion()
+                        selectedAnswerIndex = nil
+                    }
+                    submitted.toggle()
                 }) {
-                    ButtonView(text: "Submit", fontColor: .white, buttonColor: .green, height: 48)
+                    ButtonView(text: buttonText, fontColor: .white, buttonColor: .green, height: 48)
                 }
                 .padding()
                 .disabled(selectedAnswerIndex == nil)
@@ -58,13 +61,13 @@ struct TestView: View {
     }
     
     func getButtonColor(answerIndex: Int) -> Color {
-        if submitted == false {
+        if !submitted {
             return answerIndex == selectedAnswerIndex ? Color.gray : Color.white
         } else {
             if answerIndex == selectedAnswerIndex {
-                return answerIndex == correctAnswerIndex ? Color.green : Color.red
+                return answerIndex == model.correctAnswerIndex ? Color.green : Color.red
             } else {
-                return answerIndex == correctAnswerIndex ? Color.green : Color.white
+                return answerIndex == model.correctAnswerIndex ? Color.green : Color.white
             }
         }
     }
