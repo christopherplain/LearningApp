@@ -35,7 +35,12 @@ struct LessonCardView: View {
 
 struct LessonCardView_Previews: PreviewProvider {
     static var previews: some View {
+        let model = ContentModel()
         LessonCardView(index: 0)
-            .environmentObject(ContentModel())
+            .environmentObject(model)
+            .onAppear(perform: {
+                model.beginModule(0)
+                model.beginLesson(0)
+            })
     }
 }

@@ -27,13 +27,13 @@ struct LessonDetailView: View {
                     Button(action: {
                         model.beginLesson(nextLessonIndex)
                     }) {
-                        RectangleCardView(text: "Next Lesson: \(nextLessonTitle)", color: .green, height: 48)
+                        ButtonView(text: "Next Lesson: \(nextLessonTitle)", fontColor: .white, buttonColor: .green, height: 48)
                     }
                 } else {
                     Button(action: {
                         model.lessonLinkSelected = nil
                     }) {
-                        RectangleCardView(text: "Complete", color: .green, height: 48)
+                        ButtonView(text: "Complete", fontColor: .white, buttonColor: .green, height: 48)
                     }
                 }
             }

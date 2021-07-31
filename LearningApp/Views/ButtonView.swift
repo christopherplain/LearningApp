@@ -7,27 +7,28 @@
 
 import SwiftUI
 
-struct RectangleCardView: View {
+struct ButtonView: View {
     var text: String
-    var color: Color
+    var fontColor: Color
+    var buttonColor: Color
     var height: CGFloat
 
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(color)
+                .foregroundColor(buttonColor)
                 .cornerRadius(10)
                 .shadow(radius: 5)
                 .frame(height: height)
             Text(text)
-                .foregroundColor(.white)
+                .foregroundColor(fontColor)
                 .fontWeight(.bold)
         }
     }
 }
 
-struct RectangleCardView_Previews: PreviewProvider {
+struct ButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        RectangleCardView(text: "Test", color: .green, height: 48)
+        ButtonView(text: "Test", fontColor: .white, buttonColor: .green, height: 48)
     }
 }
