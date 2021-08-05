@@ -14,11 +14,12 @@ struct TestView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
+            let questionCount = model.currentModule?.test.questions.count ?? 0
             if model.currentQuestion != nil {
                 
                 // MARK: Question number
                 let answers = model.currentQuestion!.answers
-                Text("Question \(model.currentQuestionIndex! + 1) of \(model.currentModule!.test.questions.count)")
+                Text("Question \(model.currentQuestionIndex! + 1) of \(questionCount)")
                     .padding(.leading)
                 
                 // MARK: Question text
@@ -43,9 +44,11 @@ struct TestView: View {
                 }
                 
                 // MARK: Submit button
-                let buttonText = !submitted ? "Submit" : "Next"
+                let buttonText = getButtonText()
                 Button(action: {
-                    if submitted {
+                    if !submitted {
+                        model.scoreQuestion(for: selectedAnswerIndex!)
+                    } else {
                         model.nextQuestion()
                         selectedAnswerIndex = nil
                     }
@@ -55,6 +58,8 @@ struct TestView: View {
                 }
                 .padding()
                 .disabled(selectedAnswerIndex == nil)
+            } else {
+                TestResultView(testScore: model.testScore, questionCount: questionCount)
             }
         }
         .navigationTitle("\(model.currentModule?.category ?? "") Test")
@@ -69,6 +74,16 @@ struct TestView: View {
             } else {
                 return answerIndex == model.correctAnswerIndex ? Color.green : Color.white
             }
+        }
+    }
+    
+    func getButtonText() -> String {
+        if !submitted {
+            return "Submit"
+        } else if model.hasNextQuestion() {
+            return "Next"
+        } else {
+            return "Finish"
         }
     }
 }

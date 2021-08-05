@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C04A1CAA26B6537600E8A380 /* TestResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04A1CA926B6537600E8A380 /* TestResultView.swift */; };
 		C05EC65626B0E35F006C8CBE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05EC65526B0E35F006C8CBE /* Constants.swift */; };
 		C05EC65826B1034A006C8CBE /* StyledTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05EC65726B1034A006C8CBE /* StyledTextView.swift */; };
 		C078278726B24E4800F3C14B /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C078278626B24E4800F3C14B /* ButtonView.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C04A1CA926B6537600E8A380 /* TestResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultView.swift; sourceTree = "<group>"; };
 		C05EC65526B0E35F006C8CBE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C05EC65726B1034A006C8CBE /* StyledTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledTextView.swift; sourceTree = "<group>"; };
 		C078278626B24E4800F3C14B /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				C0C7F22A26ACEE8600B82836 /* LessonListView.swift */,
 				C05EC65726B1034A006C8CBE /* StyledTextView.swift */,
 				C078278826B2586400F3C14B /* TestView.swift */,
+				C04A1CA926B6537600E8A380 /* TestResultView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				C0C7F22B26ACEE8600B82836 /* LessonListView.swift in Sources */,
 				C0C7F22926ACB95100B82836 /* HomeCardView.swift in Sources */,
 				C0C7F22D26ACF95D00B82836 /* LessonCardView.swift in Sources */,
+				C04A1CAA26B6537600E8A380 /* TestResultView.swift in Sources */,
 				C0DE117326AFAF6B00ECBEB2 /* LessonDetailView.swift in Sources */,
 				C0F64D3626A90F260063C7D9 /* HomeView.swift in Sources */,
 				C0C27A8C26ABC46100499E78 /* Module.swift in Sources */,

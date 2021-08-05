@@ -20,6 +20,7 @@ class ContentModel: ObservableObject {
     var currentLessonIndex: Int?
     var currentQuestionIndex: Int?
     var styleData: Data?
+    var testScore = 0
     
     init() {
         getModules()
@@ -93,6 +94,12 @@ class ContentModel: ObservableObject {
             currentQuestion = nil
             currentQuestionIndex = nil
             currentStyledText = nil
+        }
+    }
+    
+    func scoreQuestion(for selectedAnswerIndex: Int) {
+        if selectedAnswerIndex == correctAnswerIndex {
+            testScore += 1
         }
     }
 
