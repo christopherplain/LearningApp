@@ -23,19 +23,45 @@ class ContentModel: ObservableObject {
     var testScore = 0
     
     init() {
-        getModules()
+        getLocalData()
+        getRemoteData()
         getStyleData()
     }
     
-    func getModules() {
+    func getLocalData() {
         let url = Bundle.main.url(forResource: "data", withExtension: "json")
         do {
             let data = try Data(contentsOf: url!)
             let decoder = JSONDecoder()
-            modules = try decoder.decode([Module].self, from: data)
+            let modules = try decoder.decode([Module].self, from: data)
+            self.modules += modules
         } catch {
             print(error)
         }
+    }
+    
+    func getRemoteData() {
+        let urlString = "https://raw.githubusercontent.com/christopherplain/learning-app-data/main/data2.json"
+        let url = URL(string: urlString)
+        guard url != nil else {
+            return
+        }
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: url!) { (data, response, error) in
+            guard error == nil else {
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let modules = try decoder.decode([Module].self, from: data!)
+                DispatchQueue.main.async {
+                    self.modules += modules
+                }
+            } catch {
+                print(error)
+            }
+        }
+        dataTask.resume()
     }
     
     func getStyleData() {

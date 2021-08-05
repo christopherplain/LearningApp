@@ -21,7 +21,7 @@ struct HomeView: View {
                 // MARK: Modules
                 ScrollView {
                     LazyVStack {
-                        ForEach(model.modules.indices) { index in
+                        ForEach(model.modules.indices, id: \.self) { index in
                             let module = model.modules[index]
                             VStack(spacing: 20) {
                                 
